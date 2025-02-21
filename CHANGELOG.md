@@ -7,3 +7,6 @@
 ✅ MySQL DB 연동 및 JPA Dependency 추가 
 
 ---
+
+#### 2-1) JPA를 활용한 기본 CRUD 구현
+✅ lombok & simple JPA 구현
