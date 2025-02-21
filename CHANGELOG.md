@@ -10,3 +10,7 @@
 
 #### 2-1) JPA를 활용한 기본 CRUD 구현
 ✅ lombok & simple JPA 구현
+
+#### 2-2) Swagger 문서와 JPA 추가 구현
+✅ Swagger 연동
+✅ JPA w/ relationship
