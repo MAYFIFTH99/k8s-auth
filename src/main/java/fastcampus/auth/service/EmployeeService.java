@@ -12,7 +12,12 @@ public class EmployeeService {
 
     private final EmployeeRepository employeeRepository;
 
-    public List<Employee> listEmployees(){
+    public List<Employee> listEmployees() {
         return employeeRepository.findAll();
+    }
+
+    public Employee createEmployee(String firstName, String lastName, Long departmentId) {
+        Employee employee = Employee.createEmployee(firstName, lastName, departmentId);
+        return employeeRepository.save(employee);
     }
 }
