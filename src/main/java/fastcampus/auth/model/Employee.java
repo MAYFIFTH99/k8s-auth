@@ -23,7 +23,7 @@ import lombok.NoArgsConstructor;
 public class Employee {
 
     public static Employee createEmployee(String firstName, String lastName, Long departmentId,
-            String kakaoNickName) {
+            String kakaoNickName, Set<Role> roles) {
 
 
         return Employee.builder()
@@ -31,6 +31,7 @@ public class Employee {
                 .lastName(lastName)
                 .departmentId(departmentId)
                 .kakaoNickName(kakaoNickName)
+                .roles(roles)
                 .build();
     }
 

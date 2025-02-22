@@ -23,7 +23,7 @@ public class EmployeeService {
             throw new DuplicateKeyException("이미 존재하는 닉네임입니다.");
         }
 
-        Employee employee = Employee.createEmployee(firstName, lastName, departmentId, kakaoNickName);
+        Employee employee = Employee.createEmployee(firstName, lastName, departmentId, kakaoNickName,null);
         return employeeRepository.save(employee);
     }
 }
