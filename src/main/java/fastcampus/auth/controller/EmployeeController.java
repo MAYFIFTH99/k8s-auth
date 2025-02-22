@@ -5,9 +5,12 @@ import fastcampus.auth.service.EmployeeService;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
@@ -20,5 +23,14 @@ public class EmployeeController {
     @GetMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<Employee>> listALl() {
         return ResponseEntity.ok().body(employeeService.listEmployees());
+    }
+
+    @PostMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Employee> create(@RequestParam String firstName,
+            @RequestParam String lastName, @RequestParam Long departmentId
+    , @RequestParam String kakaoNickName) {
+
+        Employee newEmployee = employeeService.createEmployee(firstName, lastName, departmentId, kakaoNickName);
+        return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 }
