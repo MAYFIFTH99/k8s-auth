@@ -22,11 +22,15 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor(access = AccessLevel.PROTECTED)
 public class Employee {
 
-    public static Employee createEmployee(String firstName, String lastName, Long departmentId){
+    public static Employee createEmployee(String firstName, String lastName, Long departmentId,
+            String kakaoNickName) {
+
+
         return Employee.builder()
                 .firstName(firstName)
                 .lastName(lastName)
                 .departmentId(departmentId)
+                .kakaoNickName(kakaoNickName)
                 .build();
     }
 
@@ -35,8 +39,12 @@ public class Employee {
     private Long id;
 
     private String firstName;
+
     private String lastName;
+
     private Long departmentId;
+
+    private String kakaoNickName;
 
     @ManyToMany
     @JoinTable(

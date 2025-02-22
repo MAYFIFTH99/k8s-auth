@@ -4,6 +4,7 @@ import fastcampus.auth.model.Employee;
 import fastcampus.auth.repository.EmployeeRepository;
 import java.util.List;
 import lombok.RequiredArgsConstructor;
+import org.springframework.dao.DuplicateKeyException;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -16,8 +17,13 @@ public class EmployeeService {
         return employeeRepository.findAll();
     }
 
-    public Employee createEmployee(String firstName, String lastName, Long departmentId) {
-        Employee employee = Employee.createEmployee(firstName, lastName, departmentId);
+    public Employee createEmployee(String firstName, String lastName, Long departmentId, String kakaoNickName) {
+
+        if (employeeRepository.existsByKakaoNickName(kakaoNickName)) {
+            throw new DuplicateKeyException("이미 존재하는 닉네임입니다.");
+        }
+
+        Employee employee = Employee.createEmployee(firstName, lastName, departmentId, kakaoNickName);
         return employeeRepository.save(employee);
     }
 }

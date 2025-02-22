@@ -27,9 +27,10 @@ public class EmployeeController {
 
     @PostMapping(value = "/employees", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<Employee> create(@RequestParam String firstName,
-            @RequestParam String lastName, @RequestParam Long departmentId) {
+            @RequestParam String lastName, @RequestParam Long departmentId
+    , @RequestParam String kakaoNickName) {
 
-        Employee newEmployee = employeeService.createEmployee(firstName, lastName, departmentId);
+        Employee newEmployee = employeeService.createEmployee(firstName, lastName, departmentId, kakaoNickName);
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
 }
