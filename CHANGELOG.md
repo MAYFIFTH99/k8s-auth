@@ -14,3 +14,15 @@
 #### 2-2) Swagger 문서와 JPA 추가 구현
 ✅ Swagger 연동
 ✅ JPA w/ relationship
+
+
+#### 2-3) Kakao Social Login 1
+✅ 회원 등록
+✅ 카카오 소셜 로그인 지원
+
+#### 2-4) Kakao Social Login 2
+✅ 카카오 소셜 로그인 정보 확인
+✅ 임직원 카카오 닉네임 정보 등록
+✅ 확인된 정보가 등록된 유저의 정보인지 검증
+
+---
