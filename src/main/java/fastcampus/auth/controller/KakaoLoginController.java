@@ -3,6 +3,7 @@ package fastcampus.auth.controller;
 import fastcampus.auth.model.KakaoUserInfoResponseDto;
 import fastcampus.auth.repository.EmployeeRepository;
 import fastcampus.auth.service.KakaoService;
+import fastcampus.auth.service.LoginService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.HttpStatus;
@@ -16,20 +17,10 @@ import org.springframework.web.bind.annotation.RestController;
 @Slf4j
 public class KakaoLoginController {
 
-    private final KakaoService kakaoService;
-    private final EmployeeRepository employeeRepository;
+    private final LoginService loginService;
 
     @GetMapping("/kakao/callback")
     public ResponseEntity callback(@RequestParam String code){
-        log.info("code : {}", code);
-        String accessToken = kakaoService.getAccessTokenFromKakao(code);
-        log.info("accessToken : {}", accessToken);
-        KakaoUserInfoResponseDto dto = kakaoService.getUserFromKakao(accessToken);
-        String nickName = dto.getKakaoAccount().getProfile().getNickName();
-        if (employeeRepository.existsByKakaoNickName(nickName)) {
-            return new ResponseEntity("환영합니다 " + nickName + "님", HttpStatus.OK);
-        } else {
-            return new ResponseEntity("등록된 사원이 아닙니다",HttpStatus.FORBIDDEN);
-        }
+        return loginService.login(code);
     }
 }
