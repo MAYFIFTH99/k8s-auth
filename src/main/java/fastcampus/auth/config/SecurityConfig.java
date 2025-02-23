@@ -21,6 +21,7 @@ public class SecurityConfig {
     private final KakaoService kakaoService;
     private final EmployeeRepository employeeRepository;
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
+    private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
     private static final String[] WHITE_LIST = {"/swagger-ui/**", "/v3/**", "/login/**", "/images/**", "/kakao/callback"};
 
@@ -37,8 +38,15 @@ public class SecurityConfig {
         http.addFilterBefore(new JwtAuthFilter(kakaoService,employeeRepository), UsernamePasswordAuthenticationFilter.class);
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(WHITE_LIST).permitAll()
+                .requestMatchers("/admin/**").hasRole("ADMIN")
+                .requestMatchers("/employees/**").hasRole("USER")
+                .requestMatchers("/departments/**").hasRole("USER")
                 .anyRequest().authenticated());
-        http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(customAuthenticationEntryPoint));
+
+        http.exceptionHandling(exceptionHandling -> exceptionHandling
+                .authenticationEntryPoint(customAuthenticationEntryPoint) //인증이 안됐을 때
+                .accessDeniedHandler(customAccessDeniedHandler)); //인증은 되었지만 권한이 없을 때
+
         return http.build();
     }
 }

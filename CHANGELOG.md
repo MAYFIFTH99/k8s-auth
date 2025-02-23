@@ -33,3 +33,6 @@
 #### 3-2) Spring Security
 ✅ Spring Security 적용
 ✅ 토큰 검증 로직 추가
+
+#### 3-3) RBAC
+✅ API 별 RBAC 설정 추가
