@@ -29,3 +29,7 @@
 
 ##### 3-1) JWT, JUNIt
 ✅ JWT 토큰 유틸 및 Junit 테스트 작성
+
+#### 3-2) Spring Security
+✅ Spring Security 적용
+✅ 토큰 검증 로직 추가
