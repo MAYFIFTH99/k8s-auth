@@ -20,6 +20,7 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 public class SecurityConfig {
     private final KakaoService kakaoService;
     private final EmployeeRepository employeeRepository;
+    private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
 
     private static final String[] WHITE_LIST = {"/swagger-ui/**", "/v3/**", "/login/**", "/images/**", "/kakao/callback"};
 
@@ -37,6 +38,7 @@ public class SecurityConfig {
         http.authorizeHttpRequests(authorize -> authorize
                 .requestMatchers(WHITE_LIST).permitAll()
                 .anyRequest().authenticated());
+        http.exceptionHandling(exceptionHandling -> exceptionHandling.authenticationEntryPoint(customAuthenticationEntryPoint));
         return http.build();
     }
 }
