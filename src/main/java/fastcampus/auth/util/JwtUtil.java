@@ -75,6 +75,11 @@ public class JwtUtil {
                 .getBody();
     }
 
+    public static String parseSubject(String token){
+        return parseToken(token).getSubject();
+    }
+
+
     public static ResponseEntity<String> validateAppToken(ValidateTokenDto dto, Api api) {
         Claims claims;
         try {

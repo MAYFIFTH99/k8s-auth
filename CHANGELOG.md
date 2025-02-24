@@ -83,3 +83,12 @@
 ✅ docker image 만들기
 ✅ docker image push
 ✅ deployment yaml 추가 및 적용
+
+---
+
+#### 6-1) redis setUp
+✅ local redis setUp
+✅ Spring Application에 redis 연동
+
+####  6-2) threshold 기능 적용
+✅ threshold, throttling(알고리즘: token bucket) 기능 적용
