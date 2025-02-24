@@ -83,3 +83,9 @@
 ✅ docker image 만들기
 ✅ docker image push
 ✅ deployment yaml 추가 및 적용
+
+---
+
+#### 6-1) redis setUp
+✅ local redis setUp
+✅ Spring Application에 redis 연동
