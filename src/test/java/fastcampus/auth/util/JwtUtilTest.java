@@ -24,7 +24,7 @@ class JwtUtilTest {
         );
 
 
-        String token = JwtUtil.createToken(employee);
+        String token = JwtUtil.createUserToken(employee);
 
         assertEquals(JwtUtil.parseToken(token).get("kakaoNickName"), nickName);
 
@@ -53,7 +53,7 @@ class JwtUtilTest {
                 employeeRoleSet
         );
 
-        String token = JwtUtil.createToken(employee);
+        String token = JwtUtil.createUserToken(employee);
         List res = JwtUtil.parseToken(token).get("roles", List.class);
         assertEquals(employeeRoleSet.size(), res.size());
         assertTrue(res.contains(employeeRole1.getName()));

@@ -1,5 +1,7 @@
 package fastcampus.auth.util;
 
+import fastcampus.auth.dto.ValidateTokenDto;
+import fastcampus.auth.model.Api;
 import fastcampus.auth.model.App;
 import fastcampus.auth.model.AppRole;
 import fastcampus.auth.model.Employee;
@@ -14,6 +16,9 @@ import java.util.Date;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.stream.Collectors;
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 
 public class JwtUtil {
 
@@ -26,7 +31,7 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put("type", "app");
         claims.put("roles",
-                app.getAppRoles().stream().map(AppRole::getApi).collect(Collectors.toSet()));
+                app.getAppRoles().stream().map(AppRole::getApi).map(Api::getId).collect(Collectors.toSet()));
 
         return Jwts.builder()
                 .subject(String.valueOf(app.getId()))
@@ -70,4 +75,28 @@ public class JwtUtil {
                 .getBody();
     }
 
+    public static ResponseEntity<String> validateAppToken(ValidateTokenDto dto, Api api) {
+        Claims claims;
+        try {
+            claims = parseToken(dto.getToken());
+        } catch (Exception e) {
+            return new ResponseEntity<>("invalid token", HttpStatus.UNAUTHORIZED);
+        }
+
+        Date now = new Date();
+        if (claims.getExpiration().before(now)) {
+            return new ResponseEntity<>("token expired",HttpStatus.UNAUTHORIZED );
+        }
+        if (!StringUtils.equals("app", claims.get("type").toString())) {
+            return new ResponseEntity<>("invalid token", HttpStatus.UNAUTHORIZED);
+        }
+
+        String roles = claims.get("roles").toString();
+        if (roles.contains(api.getId().toString())) {
+            return new ResponseEntity<>("권한이 존재합니다.", HttpStatus.OK);
+        } else {
+            return new ResponseEntity<>("권한이 없습니다.", HttpStatus.FORBIDDEN);
+
+        }
+    }
 }
