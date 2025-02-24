@@ -70,3 +70,16 @@
 #### 4-3) App2App 2
 ✅ app2app 토큰 발급
 ✅ app2app 토큰 검증
+
+---
+#### 5-1) K8S 배포 1
+✅ multi 환경을 위한 application properties 설정
+✅ 환경 구축
+✅ MySQL k8s 클러스터 배포
+
+
+#### 5-2) K8S 배포 1
+✅ k8s 용 application properties 설정
+✅ docker image 만들기
+✅ docker image push
+✅ deployment yaml 추가 및 적용
