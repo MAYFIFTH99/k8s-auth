@@ -23,7 +23,8 @@ public class SecurityConfig {
     private final CustomAuthenticationEntryPoint customAuthenticationEntryPoint;
     private final CustomAccessDeniedHandler customAccessDeniedHandler;
 
-    private static final String[] WHITE_LIST = {"/swagger-ui/**", "/v3/**", "/login/**", "/images/**", "/kakao/callback"};
+    private static final String[] WHITE_LIST = {
+            "/swagger-ui/**", "/v3/**", "/login/**", "/images/**", "/kakao/callback", "/app/token/**"};
 
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {

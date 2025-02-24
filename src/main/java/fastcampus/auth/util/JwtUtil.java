@@ -1,5 +1,7 @@
 package fastcampus.auth.util;
 
+import fastcampus.auth.model.App;
+import fastcampus.auth.model.AppRole;
 import fastcampus.auth.model.Employee;
 import fastcampus.auth.model.EmployeeRole;
 import io.jsonwebtoken.Claims;
@@ -17,7 +19,25 @@ public class JwtUtil {
 
     private static final Key SECRET_KEY = Keys.secretKeyFor(SignatureAlgorithm.HS256);
 
-    public static String createToken(Employee employee) {
+    public static String createAppToken(App app){
+        Date now = new Date();
+        Date expiredAt = new Date(now.getTime() + 1000 * 60 * 60);
+
+        Map<String, Object> claims = new HashMap<>();
+        claims.put("type", "app");
+        claims.put("roles",
+                app.getAppRoles().stream().map(AppRole::getApi).collect(Collectors.toSet()));
+
+        return Jwts.builder()
+                .subject(String.valueOf(app.getId()))
+                .claims(claims)
+                .issuedAt(now)
+                .expiration(expiredAt)
+                .signWith(SECRET_KEY)
+                .compact();
+    }
+
+    public static String createUserToken(Employee employee) {
 
         Date now = new Date();
         Date expiredAt = new Date(now.getTime() + 1000 * 60 * 60);
