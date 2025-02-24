@@ -1,6 +1,7 @@
 package fastcampus.auth.model;
 
 import io.swagger.v3.oas.annotations.media.Schema;
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
@@ -21,5 +22,10 @@ public class AppRole {
     @OneToOne
     @JoinColumn(name="api_id", referencedColumnName = "id")
     private Api api;
+
+    @Column(name = "app_id")
+    private Long appId;
+
+    private Integer threshold;
 
 }
