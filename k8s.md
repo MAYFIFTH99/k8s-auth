@@ -13,3 +13,6 @@
 4. 실행
 - minikube start
 - kubectl get all
+
+5. docker image 생성 후 repository에 push
+- docker build -t {dockerhub_id}/{image_name}:{tag} .
