@@ -2,13 +2,11 @@ package fastcampus.auth.service;
 
 import fastcampus.auth.model.KakaoTokenResponseDto;
 import fastcampus.auth.model.KakaoUserInfoResponseDto;
-import lombok.RequiredArgsConstructor;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Service;
 import org.springframework.web.reactive.function.client.WebClient;
 
 @Service
-@RequiredArgsConstructor
 public class KakaoService {
     @Value("${kakao.client_id}")
     private String CLIENT_ID;
