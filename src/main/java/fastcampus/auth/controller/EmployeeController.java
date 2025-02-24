@@ -9,6 +9,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
@@ -33,4 +34,13 @@ public class EmployeeController {
         Employee newEmployee = employeeService.createEmployee(firstName, lastName, departmentId, kakaoNickName);
         return new ResponseEntity<>(newEmployee, HttpStatus.CREATED);
     }
+
+    /**
+     * Cache를 이용한 단건 조회 테스트를 위한 테스트 API
+     */
+    @GetMapping(value = "/employees/{id}", produces = MediaType.APPLICATION_JSON_VALUE)
+    public ResponseEntity<Employee> findById(@PathVariable Long id) {
+        return ResponseEntity.ok().body(employeeService.findEmployeeById(id));
+    }
+
 }
