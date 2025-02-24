@@ -26,5 +26,9 @@ public class App {
     @JoinColumn(name = "app_id")
     private List<Api> apis;
 
+    @OneToMany
+    @JoinColumn(name = "app_id")
+    private List<AppRole> appRoles;
+
 
 }

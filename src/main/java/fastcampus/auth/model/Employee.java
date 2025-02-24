@@ -24,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Employee {
 
     public static Employee createEmployee(String firstName, String lastName, Long departmentId,
-            String kakaoNickName, Set<Role> roles) {
+            String kakaoNickName, Set<EmployeeRole> employeeRoles) {
 
 
         return Employee.builder()
@@ -32,7 +32,7 @@ public class Employee {
                 .lastName(lastName)
                 .departmentId(departmentId)
                 .kakaoNickName(kakaoNickName)
-                .roles(roles)
+                .employeeRoles(employeeRoles)
                 .build();
     }
 
@@ -54,10 +54,10 @@ public class Employee {
             joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<EmployeeRole> employeeRoles = new HashSet<>();
 
     public static boolean isHR(Employee employee){
-        return employee.getRoles().stream().anyMatch(role -> role.getName().equals("인사팀"));
+        return employee.getEmployeeRoles().stream().anyMatch(employeeRole -> employeeRole.getName().equals("인사팀"));
     }
 
 

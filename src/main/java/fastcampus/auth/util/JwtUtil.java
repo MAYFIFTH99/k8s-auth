@@ -1,7 +1,7 @@
 package fastcampus.auth.util;
 
 import fastcampus.auth.model.Employee;
-import fastcampus.auth.model.Role;
+import fastcampus.auth.model.EmployeeRole;
 import io.jsonwebtoken.Claims;
 import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
@@ -25,8 +25,8 @@ public class JwtUtil {
         Map<String, Object> claims = new HashMap<>();
         claims.put("kakaoNickName", employee.getKakaoNickName());
 
-        if(employee.getRoles() != null && !employee.getRoles().isEmpty()){
-            claims.put("roles", employee.getRoles().stream().map(Role::getName).collect(
+        if(employee.getEmployeeRoles() != null && !employee.getEmployeeRoles().isEmpty()){
+            claims.put("roles", employee.getEmployeeRoles().stream().map(EmployeeRole::getName).collect(
                     Collectors.toSet()));
         }else{
             claims.put("roles", Collections.emptySet());
