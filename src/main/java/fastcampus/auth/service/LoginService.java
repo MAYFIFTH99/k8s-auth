@@ -6,8 +6,6 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestParam;
 
 @Service
 @RequiredArgsConstructor
@@ -17,14 +15,21 @@ public class LoginService {
     private final EmployeeRepository employeeRepository;
 
     public ResponseEntity login(String code){
-        String accessToken = kakaoService.getAccessTokenFromKakao(code);
-        KakaoUserInfoResponseDto dto = kakaoService.getUserFromKakao(accessToken);
+        String token = kakaoService.getAccessTokenFromKakao(code);
+        return new ResponseEntity(token, HttpStatus.OK);
+
+    }
+
+    public ResponseEntity getKakaoUser(String token){
+
+        KakaoUserInfoResponseDto dto = kakaoService.getUserFromKakao(token);
         String nickName = dto.getKakaoAccount().getProfile().getNickName();
         if (employeeRepository.existsByKakaoNickName(nickName)) {
             return new ResponseEntity("환영합니다 " + nickName + "님", HttpStatus.OK);
         } else {
-            return new ResponseEntity("등록된 사원이 아닙니다",HttpStatus.FORBIDDEN);
+            return new ResponseEntity("가입되지 않은 사용자입니다.", HttpStatus.FORBIDDEN);
         }
+
     }
 
 }

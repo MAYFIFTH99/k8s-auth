@@ -1,6 +1,7 @@
 package fastcampus.auth.model;
 
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -23,7 +24,7 @@ import lombok.NoArgsConstructor;
 public class Employee {
 
     public static Employee createEmployee(String firstName, String lastName, Long departmentId,
-            String kakaoNickName) {
+            String kakaoNickName, Set<EmployeeRole> employeeRoles) {
 
 
         return Employee.builder()
@@ -31,6 +32,7 @@ public class Employee {
                 .lastName(lastName)
                 .departmentId(departmentId)
                 .kakaoNickName(kakaoNickName)
+                .employeeRoles(employeeRoles)
                 .build();
     }
 
@@ -46,13 +48,17 @@ public class Employee {
 
     private String kakaoNickName;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(
             name = "employee_role_mapping",
             joinColumns = @JoinColumn(name = "employee_id", referencedColumnName = "id"),
             inverseJoinColumns = @JoinColumn(name = "role_id", referencedColumnName = "id")
     )
-    private Set<Role> roles = new HashSet<>();
+    private Set<EmployeeRole> employeeRoles = new HashSet<>();
+
+    public static boolean isHR(Employee employee){
+        return employee.getEmployeeRoles().stream().anyMatch(employeeRole -> employeeRole.getName().equals("인사팀"));
+    }
 
 
 }

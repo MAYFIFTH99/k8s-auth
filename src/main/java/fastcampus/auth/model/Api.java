@@ -9,13 +9,17 @@ import lombok.Getter;
 
 @Entity
 @Getter
-public class Role {
+public class Api {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
+    @Schema(example = "123", description = "auto increment pk")
     private Long id;
 
-    @Schema(example = "인사팀", description = "권한 이름")
-    private String name;
+    @Schema(example = "GET", description = "http method")
+    private String method;
+
+    @Schema(example = "/vacation", description = "api path")
+    private String path;
 
 }
