@@ -20,6 +20,10 @@ public class AppController {
 
     private final AppService appService;
 
+
+    /**
+     * 전체 시스템 조회 API
+     */
     @Operation(description = "시스템 전체 조회")
     @GetMapping(value = "/apps", produces = MediaType.APPLICATION_JSON_VALUE)
     public ResponseEntity<List<App>> listAll(){
