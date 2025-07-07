@@ -14,6 +14,4 @@ import lombok.Setter;
 public class AppTokenResponseDto {
 
     private String token;
-
-
 }
