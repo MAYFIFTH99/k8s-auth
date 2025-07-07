@@ -15,5 +15,4 @@ public class DepartmentService {
     public List<Department> listDepartments() {
         return departmentRepository.findAll();
     }
-
 }
